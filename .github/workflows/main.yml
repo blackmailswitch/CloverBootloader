@@ -35,12 +35,19 @@ jobs:
           HOMEBREW_NO_INSTALL_CLEANUP: 1
           HOMEBREW_NO_AUTO_UPDATE: 1
 
-            - name: Fix OpenCorePkg Macro
+                  - name: Fix OpenCorePkg Macro
         run: |
+          # 1. Aplică patch-ul tău inițial pentru NVRAM
           sed -i '' 's|///#define OC_PLATFORM_NVRAM_CONFIG_FIELDS|#define OC_PLATFORM_NVRAM_CONFIG_FIELDS|g' OpenCorePkg/Include/Acidanthera/Library/OcConfigurationLib.h
           
-          # Dezactivează filtrarea forțată a partițiilor Apple în modul Secure Boot hardware
-          sed -i '' 's|if (SecureBoot) {|if (0) {|g' OpenCorePkg/Library/OcAppleBootPolicyLib/OcAppleBootPolicyLib.c 2>/dev/null || true
+          # 2. Localizează și modifică corect fișierul de securitate pe macOS
+          TARGET_FILE=$(find OpenCorePkg -name "OcAppleBootPolicyLib.c" | head -n 1)
+          if [ -n "$TARGET_FILE" ] && [ -f "$TARGET_FILE" ]; then
+            echo "Patching secure boot policy in: $TARGET_FILE"
+            sed -i '' 's/if (SecureBoot)/if (0)/g' "$TARGET_FILE"
+          else
+            echo "Warning: OcAppleBootPolicyLib.c not found, skipping patch."
+          fi
 
       - name: Build Clover Pack
         run: |
