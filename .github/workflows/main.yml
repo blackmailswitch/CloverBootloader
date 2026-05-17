@@ -74,6 +74,7 @@ jobs:
             CloverV2*.zip
             CLOVERX64.efi.zip
             Clover_r*.pkg
+            **/Launcher.efi
 
       - name: Publish Release
         if: startsWith(github.ref, 'refs/tags/')
