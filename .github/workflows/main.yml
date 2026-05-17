@@ -35,9 +35,12 @@ jobs:
           HOMEBREW_NO_INSTALL_CLEANUP: 1
           HOMEBREW_NO_AUTO_UPDATE: 1
 
-      - name: Fix OpenCorePkg Macro
+            - name: Fix OpenCorePkg Macro
         run: |
           sed -i '' 's|///#define OC_PLATFORM_NVRAM_CONFIG_FIELDS|#define OC_PLATFORM_NVRAM_CONFIG_FIELDS|g' OpenCorePkg/Include/Acidanthera/Library/OcConfigurationLib.h
+          
+          # Dezactivează filtrarea forțată a partițiilor Apple în modul Secure Boot hardware
+          sed -i '' 's|if (SecureBoot) {|if (0) {|g' OpenCorePkg/Library/OcAppleBootPolicyLib/OcAppleBootPolicyLib.c 2>/dev/null || true
 
       - name: Build Clover Pack
         run: |
