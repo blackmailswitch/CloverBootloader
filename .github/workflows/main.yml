@@ -35,7 +35,7 @@ jobs:
           HOMEBREW_NO_INSTALL_CLEANUP: 1
           HOMEBREW_NO_AUTO_UPDATE: 1
 
-                  - name: Fix OpenCorePkg Macro
+      - name: Fix OpenCorePkg Macro
         run: |
           # 1. Aplică patch-ul tău inițial pentru NVRAM
           sed -i '' 's|///#define OC_PLATFORM_NVRAM_CONFIG_FIELDS|#define OC_PLATFORM_NVRAM_CONFIG_FIELDS|g' OpenCorePkg/Include/Acidanthera/Library/OcConfigurationLib.h
