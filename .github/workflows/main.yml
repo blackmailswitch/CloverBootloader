@@ -37,15 +37,14 @@ jobs:
 
       - name: Fix OpenCorePkg Macro
         run: |
-          # 1. Patch-ul tău inițial pentru NVRAM (obligatoriu)
           sed -i '' 's|///#define OC_PLATFORM_NVRAM_CONFIG_FIELDS|#define OC_PLATFORM_NVRAM_CONFIG_FIELDS|g' OpenCorePkg/Include/Acidanthera/Library/OcConfigurationLib.h
           
-          # 2. Patch-ul pentru afișarea discurilor de macOS când Secure Boot este activ hardware
-          # Modifică funcția din OpenCorePkg pentru a nu mai ascunde partițiile Apple
-          TARGET_FILE=$(find OpenCorePkg -name "OcAppleBootPolicyLib.c" | head -n 1)
-          if [ -n "$TARGET_FILE" ] && [ -f "$TARGET_FILE" ]; then
-            echo "Se aplică patch-ul de securitate în: $TARGET_FILE"
-            sed -i '' 's/if (SecureBoot)/if (0)/g' "$TARGET_FILE"
+          # Patch RADICAL: Forțează sistemul de securitate OpenCore să aprobe orice bootloader de Mac (boot.efi)
+          TARGET_CRYPTO=$(find OpenCorePkg -name "OcCryptoLib.c" -o -name "SecureBoot.c" | head -n 1)
+          if [ -n "$TARGET_CRYPTO" ]; then
+            echo "Modificăm politica de criptare în $TARGET_CRYPTO"
+            # Schimbă logica internă ca să returneze succes la orice verificare de securitate software
+            sed -i '' 's/return Status;/return EFI_SUCCESS;/g' "$TARGET_CRYPTO" 2>/dev/null || true
           fi
 
       - name: Build Clover Pack
