@@ -52,7 +52,7 @@ jobs:
       - name: Build Clover Pack
         run: |
           chmod +x ./buildme
-          ./buildme ci -D ENABLE_SECURE_BOOT=1
+          ./buildme "" ci -D ENABLE_SECURE_BOOT=1
       - name: Prepare Release Packs
         run: |
           (cd "CloverPackage/CloverV2/EFI/CLOVER/" && zip -q "CLOVERX64.efi.zip" "CLOVERX64.efi" || exit 1)
