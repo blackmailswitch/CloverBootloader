@@ -37,27 +37,12 @@ jobs:
 
       - name: Fix OpenCorePkg Macro
         run: |
-          # 1. Patch-ul tău inițial pentru NVRAM
           sed -i '' 's|///#define OC_PLATFORM_NVRAM_CONFIG_FIELDS|#define OC_PLATFORM_NVRAM_CONFIG_FIELDS|g' OpenCorePkg/Include/Acidanthera/Library/OcConfigurationLib.h
-          
-          # 2. Patch pentru afișarea discurilor (cel testat anterior)
-          TARGET_POLICY=$(find OpenCorePkg -name "OcAppleBootPolicyLib.c" | head -n 1)
-          if [ -n "$TARGET_POLICY" ]; then
-            sed -i '' 's/if (SecureBoot)/if (0)/g' "$TARGET_POLICY"
-          fi
-
-          # 3. Patch RADICAL: Forțează librăria de Boot Management să permită execuția lui boot.efi
-          TARGET_BOOT=$(find OpenCorePkg -name "SecureBoot.c" | head -n 1)
-          if [ -n "$TARGET_BOOT" ] && [ -f "$TARGET_BOOT" ]; then
-            echo "Se dezactivează verificarea hardware în: $TARGET_BOOT"
-            # Înlocuim logica care blochează pornirea dacă SecureBoot este activ hardware
-            sed -i '' 's/if (SecureBoot)/if (0)/g' "$TARGET_BOOT"
-          fi
 
       - name: Build Clover Pack
         run: |
           chmod +x ./buildme
-          ./buildme "" ci -D ENABLE_SECURE_BOOT=1
+          ./buildme "" ci
       - name: Prepare Release Packs
         run: |
           (cd "CloverPackage/CloverV2/EFI/CLOVER/" && zip -q "CLOVERX64.efi.zip" "CLOVERX64.efi" || exit 1)
@@ -74,7 +59,6 @@ jobs:
             CloverV2*.zip
             CLOVERX64.efi.zip
             Clover_r*.pkg
-            **/Launcher.efi
 
       - name: Publish Release
         if: startsWith(github.ref, 'refs/tags/')
