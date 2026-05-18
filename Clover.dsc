@@ -24,6 +24,10 @@
   SUPPORTED_ARCHITECTURES        = X64|IA32
   BUILD_TARGETS                  = RELEASE|DEBUG|DEBUGMACOS|RELEASEMACOS
   SKUID_IDENTIFIER               = DEFAULT
+  
+  # Activare suport Secure Boot pentru compilare
+  DEFINE ENABLE_SECURE_BOOT      = TRUE
+
 !ifndef SKIP_FLASH
   FLASH_DEFINITION               = Clover.fdf
 !endif
