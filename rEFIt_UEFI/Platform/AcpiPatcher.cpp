@@ -363,7 +363,7 @@ void DropTableFromRSDT(UINT32 Signature, UINT64 TableId, UINT32 Length)
     CopyMem(&OTID[0], &Table->OemTableId, 8);
     //DBG(" Found table: %s  %s\n", sign, OTID);
     if (!((Signature && Table->Signature == Signature) &&
-          (!TableId || OemTableId_NoSpace(Table->OemTableId) == TableId) &&
+          (!TableId || OemTableId_NoSpace(Table->OemTableId) == OemTableId_NoSpace(TableId)) &&
           (!Length || Table->Length == Length))) {
       continue;
     }
@@ -404,7 +404,7 @@ void DropTableFromXSDT(UINT32 Signature, UINT64 TableId, UINT32 Length)
     CopyMem(&OTID[0], &Table->OemTableId, 8);
     //DBG(" Found table: %s  %s\n", sign, OTID);
     if (!((Signature && Table->Signature == Signature) &&
-          (!TableId || OemTableId_NoSpace(Table->OemTableId) == TableId) &&
+          (!TableId || OemTableId_NoSpace(Table->OemTableId) == OemTableId_NoSpace(TableId)) &&
           (!Length || Table->Length == Length))) {
       continue;
     }
