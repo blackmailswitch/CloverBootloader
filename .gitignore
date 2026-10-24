@@ -12,6 +12,19 @@
 /Conf
 /ConfJief
 /toolchain/
+# Игнорируем автогенерированные файлы
+PosixEFICompilation/DebugLibs/Autogen/
+PosixEFICompilation/ReleaseLibs/Autogen/
+*/Autogen/
+
+# Игнорируем библиотеки и промежуточные файлы сборки
+PosixEFICompilation/DebugLibs/*.lib
+PosixEFICompilation/ReleaseLibs/*.lib
+*.lib
+*.obj
+*.pdb
+*.exp
+*.map
 
 
 # /FileSystems/HFSPlus/

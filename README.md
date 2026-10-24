@@ -1,11 +1,11 @@
 
 # CloverBootloader 
-[![CI](https://github.com/CloverHackyColor/CloverBootloader/actions/workflows/main.yml/badge.svg)](https://github.com/CloverHackyColor/CloverBootloader/actions/workflows/main.yml) [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://github.com/CloverHackyColor/CloverBootloader/blob/master/LICENSE) 
+[![CI](https://github.com/CloverHackyColor/CloverBootloader/actions/workflows/main.yml/badge.svg)](https://github.com/CloverHackyColor/CloverBootloader/actions/workflows/main.yml) [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://github.com/CloverHackyColor/CloverBootloader/blob/master/LICENSE) [![Latest Release](https://img.shields.io/github/v/release/CloverHackyColor/CloverBootloader?style=flat&label=Latest%20Release)](https://github.com/CloverHackyColor/CloverBootloader/releases/latest)
 
 <img width="200" alt="CloverLogo" src="Logo/Clover-Logo-Default-256x256@1x.png">
 
 Bootloader for macOS, Windows and Linux in UEFI and in legacy mode
-### Read the DOC [Clover-Documentation](https://github.com/CloverHackyColor/Clover-Documentation) / [Clover-Documentation Site](https://cloverhackycolor.github.io/Clover-Documentation/)
+### Read the DOC [Clover-Wiki](https://github.com/CloverHackyColor/CloverBootloader/wiki) / [Clover-Documentation](https://github.com/CloverHackyColor/Clover-Documentation) / [Clover History](https://htmlpreview.github.io/?https://github.com/CloverHackyColor/CloverBootloader/blob/master/Clover%20History.html)
 
 # Features
 
